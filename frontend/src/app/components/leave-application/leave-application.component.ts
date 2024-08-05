@@ -25,10 +25,10 @@ import { FormsModule } from '@angular/forms';
   providers: [MessageService],
 })
 export class LeaveApplicationComponent {
-  leaveTypes: any[];
+  leaveTypes: string[] = [];
   startDate: Date | null = null;
   endDate: Date | null = null;
-  selectedType: any;
+  selectedType: string | null = null;
   reason: string = '';
 
   constructor(
@@ -55,10 +55,12 @@ export class LeaveApplicationComponent {
 
     this.leaveService
       .submitLeaveApplication({
-        startDate: this.startDate,
-        endDate: this.endDate,
-        type: this.selectedType,
+        employee_id: 1,
+        start_date: this.startDate,
+        end_date: this.endDate,
+        leave_type: this.selectedType,
         reason: this.reason,
+        status: 'pending',
       })
       .subscribe(
         (response) => {

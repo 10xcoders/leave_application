@@ -2,11 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
+export interface LeaveApplication {
+  id?: number;
+  employee_id: number;
+  start_date: Date;
+  end_date: Date;
+  reason: string;
+  status?: string;
+  leave_type: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class LeaveService {
   constructor(private http: HttpClient) {}
+
+  baseUrl = 'http://localhost:3000';
 
   getAvailableLeave(): number {
     // This should be an API call in a real application
@@ -23,26 +35,27 @@ export class LeaveService {
     return 2;
   }
 
-  getLeaveTypes(): any[] {
+  getLeaveTypes(): string[] {
     // This should be an API call in a real application
-    return [
-      { name: 'Annual Leave', balance: 15 },
-      { name: 'Sick Leave', balance: 10 },
-      { name: 'Personal Leave', balance: 3 },
-    ];
+    return ['Annual Leave', 'Sick Leave', 'Parental Leave'];
   }
 
-  getRecentApplications(): any[] {
+  getRecentApplications(): Observable<LeaveApplication[]> {
     // This should be an API call in a real application
-    return [
-      { date: '2023-08-01', type: 'Annual Leave', status: 'Approved' },
-      { date: '2023-08-15', type: 'Sick Leave', status: 'Pending' },
-    ];
+    return this.http.get<LeaveApplication[]>(
+      `${this.baseUrl}/leave_applications`
+    );
   }
 
-  submitLeaveApplication(application: any): Observable<any> {
+  submitLeaveApplication(
+    application: LeaveApplication
+  ): Observable<LeaveApplication> {
     // This should be a POST request to your API
-    return of({ success: true });
+    console.log('Submitting leave application', application);
+    return this.http.post<LeaveApplication>(
+      `${this.baseUrl}/leave_applications`,
+      application
+    );
   }
 
   getLeaveEvents(): Observable<any[]> {

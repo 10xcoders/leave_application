@@ -16,21 +16,27 @@
   <p-table [value]="recentApplications" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
-        <th>Date</th>
+        <th>Employee id</th>
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Type</th>
+        <th>Reason</th>
         <th>Status</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-application>
       <tr>
-        <td>{{ application.date }}</td>
-        <td>{{ application.type }}</td>
+        <td>{{ application.employee_id }}</td>
+        <td>{{ application.start_date }}</td>
+        <td>{{ application.start_date }}</td>
+        <td>{{ application.leave_type }}</td>
+        <td>{{ application.reason }}</td>
         <td>
           <span
             [ngClass]="{
-              'bg-green-200 text-green-800': application.status === 'Approved',
-              'bg-yellow-200 text-yellow-800': application.status === 'Pending',
-              'bg-red-200 text-red-800': application.status === 'Rejected'
+              'bg-green-200 text-green-800': application.status === 'approved',
+              'bg-yellow-200 text-yellow-800': application.status === 'pending',
+              'bg-red-200 text-red-800': application.status === 'rejected'
             }"
             class="px-2 py-1 rounded-full text-sm"
           >
