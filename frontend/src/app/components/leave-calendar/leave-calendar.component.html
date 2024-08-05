@@ -1,0 +1,15 @@
+<p-card header="Leave Calendar" styleClass="max-w-2xl mx-auto">
+  <p-calendar
+    [inline]="true"
+    [showWeek]="true"
+    [dateFormat]="'dd/mm/yy'"
+    [styleClass]="'w-full'"
+    (onSelect)="onDateSelect($event)"
+  >
+    <ng-template pTemplate="date" let-date>
+      <span [ngClass]="{ 'bg-red-200 rounded-full p-1': isLeaveDay(date) }">{{
+        date.day
+      }}</span>
+    </ng-template>
+  </p-calendar>
+</p-card>

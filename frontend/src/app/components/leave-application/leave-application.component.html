@@ -1,0 +1,53 @@
+<p-card header="Apply for Leave" styleClass="max-w-2xl mx-auto">
+  <div class="space-y-4">
+    <div>
+      <label for="leaveType" class="block text-sm font-medium text-gray-700"
+        >Leave Type</label
+      >
+      <p-dropdown
+        [options]="leaveTypes"
+        [(ngModel)]="selectedType"
+        optionLabel="name"
+        placeholder="Select a leave type"
+        styleClass="w-full"
+      ></p-dropdown>
+    </div>
+    <div>
+      <label for="startDate" class="block text-sm font-medium text-gray-700"
+        >Start Date</label
+      >
+      <p-calendar
+        [(ngModel)]="startDate"
+        [showIcon]="true"
+        styleClass="w-full"
+      ></p-calendar>
+    </div>
+    <div>
+      <label for="endDate" class="block text-sm font-medium text-gray-700"
+        >End Date</label
+      >
+      <p-calendar
+        [(ngModel)]="endDate"
+        [showIcon]="true"
+        styleClass="w-full"
+      ></p-calendar>
+    </div>
+    <div>
+      <label for="reason" class="block text-sm font-medium text-gray-700"
+        >Reason</label
+      >
+      <textarea
+        pInputTextarea
+        [(ngModel)]="reason"
+        rows="3"
+        class="w-full"
+      ></textarea>
+    </div>
+    <p-button
+      label="Submit Application"
+      (onClick)="onSubmit()"
+      styleClass="w-full"
+    ></p-button>
+  </div>
+</p-card>
+<p-toast></p-toast>

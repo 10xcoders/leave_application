@@ -1,5 +1,43 @@
-<p
-  class="flex min-h-full flex-col items-center justify-center px-6 py-12 lg:px-8"
->
-  dashboard works!
-</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+  <p-card styleClass="bg-blue-100">
+    <h2 class="text-xl font-semibold mb-2">Available Leave</h2>
+    <p class="text-3xl font-bold">{{ availableLeave }} days</p>
+  </p-card>
+  <p-card styleClass="bg-green-100">
+    <h2 class="text-xl font-semibold mb-2">Approved Leave</h2>
+    <p class="text-3xl font-bold">{{ approvedLeave }} days</p>
+  </p-card>
+  <p-card styleClass="bg-yellow-100">
+    <h2 class="text-xl font-semibold mb-2">Pending Leave</h2>
+    <p class="text-3xl font-bold">{{ pendingLeave }} days</p>
+  </p-card>
+</div>
+<p-card header="Recent Applications" styleClass="mb-4">
+  <p-table [value]="recentApplications" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-application>
+      <tr>
+        <td>{{ application.date }}</td>
+        <td>{{ application.type }}</td>
+        <td>
+          <span
+            [ngClass]="{
+              'bg-green-200 text-green-800': application.status === 'Approved',
+              'bg-yellow-200 text-yellow-800': application.status === 'Pending',
+              'bg-red-200 text-red-800': application.status === 'Rejected'
+            }"
+            class="px-2 py-1 rounded-full text-sm"
+          >
+            {{ application.status }}
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
