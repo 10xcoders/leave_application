@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import usersRoutes from "./handlers/users";
 import dotenv from "dotenv";
+import leaveApplicationRoutes from "./handlers/leave_application";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 
 usersRoutes(app);
+leaveApplicationRoutes(app);
 
 app.get("/", (_req: Request, res: Response) => {
   res.json("This is the Homepage");

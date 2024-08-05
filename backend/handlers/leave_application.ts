@@ -30,7 +30,7 @@ const create = async (req: Request, res: Response) => {
     end_date: req.body.end_date,
     reason: req.body.reason,
     status: req.body.status,
-    leave_type_id: parseInt(req.body.leave_type_id),
+    leave_type: req.body.leave_type,
   };
 
   try {
@@ -47,3 +47,5 @@ const leaveApplicationRoutes = (app: express.Application) => {
   app.get("/leave_applications/:id", show);
   app.post("/leave_applications", create);
 };
+
+export default leaveApplicationRoutes;

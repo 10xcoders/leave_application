@@ -6,8 +6,12 @@ export interface LeaveApplication {
   start_date: Date;
   end_date: Date;
   reason: string;
-  status: string;
-  leave_type_id: number;
+  status?: string;
+  leave_type: LeaveType;
+}
+interface LeaveType {
+  name: string;
+  balance: number;
 }
 
 export class LeaveApplicationStore {
@@ -41,7 +45,7 @@ export class LeaveApplicationStore {
   async create(la: LeaveApplication): Promise<LeaveApplication> {
     try {
       const sql =
-        "INSERT INTO leave_applications (employee_id, start_date, end_date, reason, status, leave_type_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
+        "INSERT INTO leave_applications (employee_id, start_date, end_date, reason, status, leave_type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
       const conn = await Client.connect();
       const result = await conn.query(sql, [
         la.employee_id,
@@ -49,7 +53,7 @@ export class LeaveApplicationStore {
         la.end_date,
         la.reason,
         la.status,
-        la.leave_type_id,
+        la.leave_type,
       ]);
       conn.release();
       return result.rows[0];
@@ -62,7 +66,7 @@ export class LeaveApplicationStore {
   async update(id: number, la: LeaveApplication): Promise<LeaveApplication> {
     try {
       const sql =
-        "UPDATE leave_applications SET employee_id = $1, start_date = $2, end_date = $3, reason = $4, status = $5, leave_type_id = $6 WHERE id = $7 RETURNING *";
+        "UPDATE leave_applications SET employee_id = $1, start_date = $2, end_date = $3, reason = $4, status = $5, leave_type = $6 WHERE id = $7 RETURNING *";
       const conn = await Client.connect();
       const result = await conn.query(sql, [
         la.employee_id,
@@ -70,7 +74,7 @@ export class LeaveApplicationStore {
         la.end_date,
         la.reason,
         la.status,
-        la.leave_type_id,
+        la.leave_type,
         id,
       ]);
       conn.release();
